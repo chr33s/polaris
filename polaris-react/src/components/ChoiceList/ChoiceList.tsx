@@ -69,7 +69,6 @@ export function ChoiceList({
 
   const uniqName = useId();
   const name = nameProp ?? uniqName;
-  const finalName = allowMultiple ? `${name}[]` : name;
 
   const titleMarkup = title ? (
     <Box as="legend" paddingBlockEnd={{xs: '0', md: '100'}}>
@@ -109,7 +108,7 @@ export function ChoiceList({
       <li key={value}>
         <Bleed marginBlockEnd={helpText ? {xs: '100', md: '0'} : {xs: '0'}}>
           <ControlComponent
-            name={finalName}
+            name={name}
             value={value}
             id={id}
             label={label}
@@ -119,7 +118,7 @@ export function ChoiceList({
             helpText={helpText}
             onChange={handleChange}
             ariaDescribedBy={
-              error && describedByError ? errorTextID(finalName) : null
+              error && describedByError ? errorTextID(name) : null
             }
             tone={tone}
           />
@@ -131,7 +130,7 @@ export function ChoiceList({
 
   const errorMarkup = error && (
     <Box paddingBlockStart={{xs: '0', md: '100'}} paddingBlockEnd="200">
-      <InlineError message={error} fieldID={finalName} />
+      <InlineError message={error} fieldID={name} />
     </Box>
   );
 
@@ -140,7 +139,7 @@ export function ChoiceList({
       as="fieldset"
       gap={{xs: '400', md: '0'}}
       aria-invalid={error != null}
-      id={finalName}
+      id={name}
     >
       {titleMarkup}
       <BlockStack as="ul" gap={{xs: '400', md: '0'}}>
